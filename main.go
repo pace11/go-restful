@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"pace/go-rest-api/app"
 	"pace/go-rest-api/controller"
+	"pace/go-rest-api/exception"
 	"pace/go-rest-api/helper"
 	"pace/go-rest-api/repository"
 	"pace/go-rest-api/service"
@@ -30,6 +31,8 @@ func main() {
 	router.POST("/api/categories", categoryController.Create)
 	router.PUT("/api/categories/:categoryId", categoryController.Update)
 	router.DELETE("/api/categories/:categoryId", categoryController.Delete)
+
+	router.PanicHandler = exception.ErrorHandler
 
 	server := http.Server{
 		Addr:    "localhost:3000",
